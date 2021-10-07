@@ -2,17 +2,15 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
 name: Build and deploy ASP.Net Core app to Azure Web App - bloodpressure-ca
-
 on:
   push:
     branches:
-      - master
+      - Development
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: windows-latest
-
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
@@ -28,6 +26,22 @@ jobs:
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
+      # Run NUnit Testing
+      - name: Run NUnit Unit Testing
+        run: dotnet test BPCalculator.Tests/BPCalculator.Tests.csproj --collect "Code coverage"
+
+      # Test the Code using Sonar Scanner
+      - name: Sonarscanner for dotnet
+        uses: Secbyte/dotnet-sonarscanner@v2.3
+        with:
+          buildCommand: dotnet build .
+          projectKey: dfoley84
+          projectName: Calculator
+          sonarOrganisation: dfoley84
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
@@ -38,7 +52,7 @@ jobs:
     runs-on: windows-latest
     needs: build
     environment:
-      name: 'Production'
+      name: 'staging'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -52,6 +66,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'bloodpressure-ca'
-          slot-name: 'Production'
+          slot-name: 'staging'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D16DF9738DEF4C678A17CD583CBC8F1C }}
           package: .
