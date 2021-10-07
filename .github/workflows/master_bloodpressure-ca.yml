@@ -95,7 +95,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'bloodpressure-ca'
+          app-name: 'bloodpressure-ca(staging)'
           slot-name: 'staging'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D16DF9738DEF4C678A17CD583CBC8F1C }}
           package: .
