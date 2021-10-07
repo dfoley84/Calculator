@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Cucumber.Messages" Version="16.0.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
@@ -12,6 +13,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BPCalculator\BPCalculator.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Steps\" />
   </ItemGroup>
 
 </Project>
