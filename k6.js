@@ -23,6 +23,6 @@ export const options = {
 }
 
 export default function main() {
-    let response = http.get('https://bloodpressure-staging.azurewebsites.net')
+    let response = http.get('https://bloodpressure-ca-staging.azurewebsites.net')
     sleep(1)
 }
