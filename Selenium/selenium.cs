@@ -9,20 +9,7 @@ namespace Selenium
 {
     public class selenium
     {
-
-        private TestContext testContextInstance;
-
-        // test harness uses this property to initliase test context
-        public TestContext TestContext
-        {
-            get { return testContextInstance; }
-            set { testContextInstance = value; }
-        }
-
         IWebDriver webDriver = new ChromeDriver();
-        private String webAppUri;
-
-
         [SetUp]
         public void Setup()
         {
