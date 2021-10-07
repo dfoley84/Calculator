@@ -80,7 +80,7 @@ jobs:
         uses: zaproxy/action-baseline@v0.5.0
         with:
           token: ${{ secrets.TOKEN_GITHUB }}
-          target: 'https://bloodpressure-ca.azurewebsites.net'
+          target: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
   #Run load Testing on the Production Web Server
   k6_load_test:
