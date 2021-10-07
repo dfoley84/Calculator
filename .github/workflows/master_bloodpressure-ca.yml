@@ -73,9 +73,6 @@ jobs:
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D16DF9738DEF4C678A17CD583CBC8F1C }}
           package: .
 
-      - name: Running Selenium Testing
-        run: dotnet test ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp/Selenium.dll /Settings:Selenium.runsettings --logger:"trx;LogFileName=selenium.trx"
-
 
   # Run Pen Testing on the Production WebPage
   Owasp:
