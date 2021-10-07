@@ -48,44 +48,17 @@ jobs:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
 
-
-  analyze:
-    name: Analyze
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-    strategy:
-      fail-fast: false
-      matrix: 
-        language: [ 'csharp', 'javascript' ]
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-   # Initializes the CodeQL tools for scanning.
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v1
-        with:
-          languages: ${{ matrix.language }}
-     
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v1
-      
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v1
-
-#Deploy Net Core app to Azure 
-  deploy:
+  #Deploy Net Core app to Azure
+  deploy_Staging:
     runs-on: windows-latest
-    needs: analyze
+    needs: build
     environment:
       name: 'staging'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
+      - uses: actions/checkout@v2
+
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
@@ -100,10 +73,14 @@ jobs:
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D16DF9738DEF4C678A17CD583CBC8F1C }}
           package: .
 
+      - name: Running Selenium Testing
+        run: dotnet test ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp/Selenium.dll /Settings:Selenium.runsettings --logger:"trx;LogFileName=selenium.trx"
+
+
   # Run Pen Testing on the Production WebPage
   Owasp:
     runs-on: ubuntu-latest
-    needs: deploy
+    needs: deploy_Staging
     steps:
       - name: Web Scanner
         uses: zaproxy/action-baseline@v0.5.0
