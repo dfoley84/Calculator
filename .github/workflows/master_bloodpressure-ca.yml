@@ -47,10 +47,38 @@ jobs:
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
-
+          
+          
+   analyze:
+      name: Analyze
+      needs: build
+      runs-on: ubuntu-latest
+      permissions:
+        actions: read
+        contents: read
+        security-events: write
+      strategy:
+        fail-fast: false
+        matrix:
+          language: [ 'csharp', 'javascript' ]
+          
+      steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+  
+      # Initializes the CodeQL tools for scanning.
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v1
+        with:
+          languages: ${{ matrix.language }}
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v1
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v1
+        
   deploy:
     runs-on: windows-latest
-    needs: build
+    needs: analyze
     environment:
       name: 'staging'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
@@ -86,7 +114,7 @@ jobs:
     name: k6 Load Testing
     runs-on: ubuntu-latest
     needs: Owasp
-    steps:
+    teps:
       - name: Checkout
         uses: actions/checkout@v1
 
