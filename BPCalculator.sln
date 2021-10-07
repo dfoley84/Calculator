@@ -12,9 +12,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D0D69B53-DD00-4325-B901-E769BEF16125}"
 	ProjectSection(SolutionItems) = preProject
 		k6.js = k6.js
+		Selenium.runsetting = Selenium.runsetting
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenium", "Selenium\Selenium.csproj", "{72C2E2FE-9F56-4CDE-AB1E-AF7C85C57E68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Selenium", "Selenium\Selenium.csproj", "{72C2E2FE-9F56-4CDE-AB1E-AF7C85C57E68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
