@@ -59,8 +59,8 @@ jobs:
       security-events: write
     strategy:
       fail-fast: false
-      matrix:
-      language: [ 'csharp', 'javascript' ]
+      matrix: 
+        language: [ 'csharp', 'javascript' ]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -116,7 +116,7 @@ jobs:
     name: k6 Load Testing
     runs-on: ubuntu-latest
     needs: Owasp
-    teps:
+    steps:
       - name: Checkout
         uses: actions/checkout@v1
 
