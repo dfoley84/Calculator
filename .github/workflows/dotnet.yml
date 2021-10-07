@@ -7,14 +7,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Unit Testing with NUnit
-      run: dotnet test BPCalculator.Tests/BPCalculator.Tests.csproj --collect "Code coverage"
+      - uses: actions/checkout@v2
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.1.301'
+          include-prerelease: true
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
+
+      # Run MSTest Unit Testing
+      - name: Run MS Unit Testing
+        run: dotnet test BPCalculator.Tests/BPCalculator.Tests.csproj --collect "Code coverage"
