@@ -22,14 +22,14 @@ jobs:
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
-      
+
         # Run NUnit Testing
       - name: Run NUnit Unit Testing
         run: dotnet test BPCalculator.Tests/BPCalculator.Tests.csproj --collect "Code coverage"
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
-        
+
     # Test the Code using Sonar Scanner
       - name: Sonarscanner for dotnet
         uses: Secbyte/dotnet-sonarscanner@v2.3
@@ -41,7 +41,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
-          
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
@@ -71,7 +71,7 @@ jobs:
           package: .
       - name: Selenium Testing
         run: dotnet test ./Selenium.dll --logger:"trx;LogFileName=selenium.trx"
-      
+
    #Run load Testing on the Production Web Server
   k6_load_test:
     name: k6 Load Testing
@@ -87,7 +87,7 @@ jobs:
           filename: k6.js
           cloud: true
           token: ${{ secrets.K6_CLOUD_API_TOKEN }}
-          
+
   # Run Pen Testing on the Production WebPage
   Owasp:
     runs-on: ubuntu-latest
@@ -99,4 +99,27 @@ jobs:
           docker_name: owasp/zap2docker-stable:2.10.0
           token: ${{ secrets.TOKEN_GITHUB }}
           target: 'https://bloodpressure-ca-staging.azurewebsites.net'
+
+  #Deploy Application to Production Environment (Approval Needed)
+  Deploy_to_Production:
+    runs-on: windows-latest
+    needs: Owasp
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: .net-app
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'bloodpressure-ca'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D16DF9738DEF4C678A17CD583CBC8F1C }}
+          package: .
 
