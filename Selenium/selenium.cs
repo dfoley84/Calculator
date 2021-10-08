@@ -23,6 +23,15 @@ namespace Selenium
         }
 
         [Test]
+        public void WebTitle()
+        {
+            using IWebDriver driver = new ChromeDriver(chromeDriverPath);
+            driver.Navigate().GoToUrl("https://bloodpressure-ca-staging.azurewebsites.net");
+            string pageTitle = driver.Title;
+            Assert.AreEqual("BP Category Calculator - BPCalculator", pageTitle);
+        }
+
+        [Test]
         public void LowBloodPressure()
         {
             using IWebDriver driver = new ChromeDriver(chromeDriverPath);
@@ -91,7 +100,7 @@ namespace Selenium
         [Test]
         public void SystolicMustbeGreater()
         {
-            {
+           
                 using IWebDriver driver = new ChromeDriver(chromeDriverPath);
                 driver.Navigate().GoToUrl("https://bloodpressure-ca-staging.azurewebsites.net");
                 driver.FindElement(By.Name("BP.Systolic")).Clear();
@@ -100,14 +109,14 @@ namespace Selenium
                 driver.FindElement(By.Name("BP.Diastolic")).SendKeys("90");
                 driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
                 Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("Systolic must be greater than Diastolic"));
-            }
+            
 
         }
 
         [Test]
         public void InvalidDiastolicValue()
         {
-            {
+            
                 using IWebDriver driver = new ChromeDriver(chromeDriverPath);
                 driver.Navigate().GoToUrl("https://bloodpressure-ca-staging.azurewebsites.net");
                 driver.FindElement(By.Name("BP.Systolic")).Clear();
@@ -116,15 +125,15 @@ namespace Selenium
                 driver.FindElement(By.Name("BP.Diastolic")).Click();
                 driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
                 Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("The Diastolic field is required"));
-              
-            }
+
+            
 
         }
 
         [Test]
         public void WrongSystolicValue()
         {
-            {
+            
                 using IWebDriver driver = new ChromeDriver(chromeDriverPath);
                 driver.Navigate().GoToUrl("https://bloodpressure-ca-staging.azurewebsites.net");
                 driver.FindElement(By.Name("BP.Systolic")).Clear();
@@ -134,14 +143,14 @@ namespace Selenium
                 driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
                 Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("Invalid Systolic Value"));
 
-            }
+            
 
         }
 
         [Test]
         public void WrongDiastolicValue()
         {
-            {
+            
                 using IWebDriver driver = new ChromeDriver(chromeDriverPath);
                 driver.Navigate().GoToUrl("https://bloodpressure-ca-staging.azurewebsites.net");
                 driver.FindElement(By.Name("BP.Systolic")).Clear();
@@ -151,14 +160,14 @@ namespace Selenium
                 driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
                 Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("Invalid Diastolic Value"));
 
-            }
+            
 
         }
 
         [Test]
         public void InvalidSystolicValue()
         {
-            {
+            
                 using IWebDriver driver = new ChromeDriver(chromeDriverPath);
                 driver.Navigate().GoToUrl("https://bloodpressure-ca-staging.azurewebsites.net");
                 driver.FindElement(By.Name("BP.Systolic")).Clear();
@@ -167,11 +176,16 @@ namespace Selenium
                 driver.FindElement(By.Name("BP.Diastolic")).SendKeys("60");
                 driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
                 Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("The Systolic field is required"));
-                driver.Quit();
-            }
+            
 
         }
 
+        [TearDown]
+        public void teardown()
+        {
+                using IWebDriver driver = new ChromeDriver(chromeDriverPath);
+                driver.Quit();  
+        }
 
     }
 }
