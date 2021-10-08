@@ -7,7 +7,7 @@ using System.Text;
 namespace BPCalculator.Tests
 {
     [TestFixture]
-    public class unitTestBloodPressure
+    public class UnitTestBloodPressure
     {
         [Test]
         public void LowBloodPressure()

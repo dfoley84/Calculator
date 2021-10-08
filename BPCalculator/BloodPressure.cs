@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Security.AccessControl;
 
 namespace BPCalculator
 {
@@ -19,36 +20,60 @@ namespace BPCalculator
         public const int SystolicMax = 190;
         public const int DiastolicMin = 40;
         public const int DiastolicMax = 100;
+        public const int AgeAdult = 1;
+        public const int AgeTeen = 2;
 
         [Range(SystolicMin, SystolicMax, ErrorMessage = "Invalid Systolic Value")]
         public int Systolic { get; set; }                       // mmHG
 
         [Range(DiastolicMin, DiastolicMax, ErrorMessage = "Invalid Diastolic Value")]
         public int Diastolic { get; set; }                      // mmHG
+     
+       public int AgeType { get; set; }
+     
+
 
         // calculate BP category
         public BPCategory Category
         {
-            get
-            {
-                // implement as part of project
-                //throw new NotImplementedException("not implemented yet");        
-                if ((Systolic >= 70 && Systolic <= 90) && (Diastolic >= 40 && Diastolic <= 60))
+            get 
+            {   
+                //Getting Low BP 
+                if ((AgeType == 1 && Systolic >= 70 && Systolic <= 90) && (Diastolic >= 40 && Diastolic <= 60))
+                {
+                    return BPCategory.Low;
+                }
+                else if ((AgeType == 2 && Systolic >= 70 && Systolic <= 105) && (Diastolic >= 40 && Diastolic <= 60))
                 {
                     return BPCategory.Low;
                 }
 
-                else if ((Systolic >= 90 && Systolic <= 120) && (Diastolic >= 60 && Diastolic <= 80))
+                // Getting Ideal BP
+                else if ((AgeType == 1 && Systolic >= 90 && Systolic <= 120) && (Diastolic >= 60 && Diastolic <= 80))
+                {
+                    return BPCategory.Ideal;
+                }
+                else if ((AgeType == 2 && Systolic >= 90 && Systolic <= 120) && (Diastolic >= 60 && Diastolic <= 80))
                 {
                     return BPCategory.Ideal;
                 }
 
-                else if ((Systolic >= 120 && Systolic <= 140) && (Diastolic >= 80 && Diastolic <= 90))
+                // Getting Pre-High BP
+                else if ((AgeType == 1 && Systolic >= 120 && Systolic <= 140) && (Diastolic >= 80 && Diastolic <= 90)) 
+                {
+                    return BPCategory.PreHigh;
+                }
+                else if ((AgeType == 2 && Systolic >= 120 && Systolic <= 140) && (Diastolic >= 80 && Diastolic <= 90))
                 {
                     return BPCategory.PreHigh;
                 }
 
-                else if ((Systolic >= 140 && Systolic <= 190) && (Diastolic >= 90 && Diastolic <= 100))
+                //Getting High
+                else if ((AgeType == 1 &&  Systolic >= 140 && Systolic <= 190) && (Diastolic >= 90 && Diastolic <= 100))
+                {
+                    return BPCategory.High;
+                }
+                else if ((AgeType == 2 && Systolic >= 140 && Systolic <= 190) && (Diastolic >= 90 && Diastolic <= 100))
                 {
                     return BPCategory.High;
                 }
@@ -59,5 +84,7 @@ namespace BPCalculator
                 }
             }
         }
+
+        
     }
 }

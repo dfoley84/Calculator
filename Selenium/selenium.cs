@@ -7,7 +7,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace Selenium
 {
-    public class selenium
+    public class Selenium
     {
         public String chromeDriverPath = Environment.GetEnvironmentVariable("ChromeWebDriver");
         private const string URL = "https://bloodpressure-ca-staging.azurewebsites.net";
@@ -183,7 +183,7 @@ namespace Selenium
         }
 
         [TearDown]
-        public void teardown()
+        public void Teardown()
         {
                 using IWebDriver driver = new ChromeDriver(chromeDriverPath);
                 driver.Quit();  
