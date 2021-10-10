@@ -38,10 +38,23 @@ namespace Selenium
         public void LowBloodPressure()
         {
             using IWebDriver driver = new ChromeDriver(chromeDriverPath);
-            driver.Navigate().GoToUrl(URL1);
+            driver.Navigate().GoToUrl(URL);
+            driver.FindElement(By.Name("BP.Systolic")).Clear();
+            driver.FindElement(By.Name("BP.Systolic")).SendKeys("70");
+            driver.FindElement(By.Name("BP.Diastolic")).Clear();
+            driver.FindElement(By.Name("BP.Diastolic")).SendKeys("60");
+            driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("Low Blood Pressure"));
+        }
 
-            SelectElement selectElement = new SelectElement(driver.FindElement(By.Id("Age")));
-            selectElement.SelectByIndex(0);
+        [Test]
+        public void TeenLowBloodPressure()
+        {
+            using IWebDriver driver = new ChromeDriver(chromeDriverPath);
+            driver.Navigate().GoToUrl(URL);
+
+            SelectElement selectElement = new SelectElement(driver.FindElement(By.Name("BP.AgeType")));
+            selectElement.SelectByIndex(1);
 
             driver.FindElement(By.Name("BP.Systolic")).Clear();
             driver.FindElement(By.Name("BP.Systolic")).SendKeys("70");
@@ -50,6 +63,8 @@ namespace Selenium
             driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
             Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("Low Blood Pressure"));
         }
+
+
 
         [Test]
         public void IdealBloodPressure()
@@ -63,6 +78,23 @@ namespace Selenium
             driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
             Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("Ideal Blood Pressure"));
         }
+
+        [Test]
+        public void TeenIdealBloodPressure()
+        {
+            using IWebDriver driver = new ChromeDriver(chromeDriverPath);
+            driver.Navigate().GoToUrl(URL);
+            SelectElement selectElement = new SelectElement(driver.FindElement(By.Name("BP.AgeType")));
+            selectElement.SelectByIndex(1);
+
+            driver.FindElement(By.Name("BP.Systolic")).Clear();
+            driver.FindElement(By.Name("BP.Systolic")).SendKeys("106");
+            driver.FindElement(By.Name("BP.Diastolic")).Clear();
+            driver.FindElement(By.Name("BP.Diastolic")).SendKeys("78");
+            driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("Ideal Blood Pressure"));
+        }
+
 
         [Test]
         public void PreHighBloodPressure()
@@ -89,6 +121,24 @@ namespace Selenium
             driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
             Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("High Blood Pressure"));
         }
+
+        [Test]
+        public void TeenHighBloodPressure()
+        {
+            using IWebDriver driver = new ChromeDriver(chromeDriverPath);
+            driver.Navigate().GoToUrl(URL);
+            SelectElement selectElement = new SelectElement(driver.FindElement(By.Name("BP.AgeType")));
+            selectElement.SelectByIndex(1);
+
+            driver.FindElement(By.Name("BP.Systolic")).Clear();
+            driver.FindElement(By.Name("BP.Systolic")).SendKeys("118");
+            driver.FindElement(By.Name("BP.Diastolic")).Clear();
+            driver.FindElement(By.Name("BP.Diastolic")).SendKeys("80");
+            driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("High Blood Pressure"));
+        }
+
+
 
         [Test]
         public void UnkownBloodPressure()
