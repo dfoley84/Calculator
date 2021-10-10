@@ -237,14 +237,13 @@ namespace Selenium
 
         }
 
-        
+
 
         [TearDown]
         public void Teardown()
         {
-                using IWebDriver driver = new ChromeDriver(chromeDriverPath);
-                driver.Quit();  
+            using IWebDriver driver = new ChromeDriver(chromeDriverPath);
+            driver.Quit();
         }
-
     }
 }
