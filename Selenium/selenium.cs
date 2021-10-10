@@ -11,6 +11,7 @@ namespace Selenium
     {
         public String chromeDriverPath = Environment.GetEnvironmentVariable("ChromeWebDriver");
         private const string URL = "https://bloodpressure-ca-staging.azurewebsites.net";
+        private const string URL1 = "localhost:5315";
         //IWebDriver webDriver = new ChromeDriver();
 
 
@@ -37,7 +38,11 @@ namespace Selenium
         public void LowBloodPressure()
         {
             using IWebDriver driver = new ChromeDriver(chromeDriverPath);
-            driver.Navigate().GoToUrl(URL);
+            driver.Navigate().GoToUrl(URL1);
+
+            SelectElement selectElement = new SelectElement(driver.FindElement(By.Id("Age")));
+            selectElement.SelectByIndex(0);
+
             driver.FindElement(By.Name("BP.Systolic")).Clear();
             driver.FindElement(By.Name("BP.Systolic")).SendKeys("70");
             driver.FindElement(By.Name("BP.Diastolic")).Clear();
@@ -181,6 +186,8 @@ namespace Selenium
             
 
         }
+
+        
 
         [TearDown]
         public void Teardown()

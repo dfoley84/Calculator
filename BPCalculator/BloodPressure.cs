@@ -43,7 +43,7 @@ namespace BPCalculator
                 {
                     return BPCategory.Low;
                 }
-                else if ((AgeType == 2 && Systolic >= 70 && Systolic <= 105) && (Diastolic >= 40 && Diastolic <= 60))
+                else if ((AgeType == 2 && Systolic >= 70 && Systolic <= 105) && (Diastolic >= 40 && Diastolic <= 77))
                 {
                     return BPCategory.Low;
                 }
@@ -53,7 +53,7 @@ namespace BPCalculator
                 {
                     return BPCategory.Ideal;
                 }
-                else if ((AgeType == 2 && Systolic >= 90 && Systolic <= 120) && (Diastolic >= 60 && Diastolic <= 80))
+                else if ((AgeType == 2 && Systolic >= 105 && Systolic <= 117) && (Diastolic >= 77 && Diastolic <= 80))
                 {
                     return BPCategory.Ideal;
                 }
@@ -63,17 +63,12 @@ namespace BPCalculator
                 {
                     return BPCategory.PreHigh;
                 }
-                else if ((AgeType == 2 && Systolic >= 120 && Systolic <= 140) && (Diastolic >= 80 && Diastolic <= 90))
-                {
-                    return BPCategory.PreHigh;
-                }
-
                 //Getting High
                 else if ((AgeType == 1 &&  Systolic >= 140 && Systolic <= 190) && (Diastolic >= 90 && Diastolic <= 100))
                 {
                     return BPCategory.High;
                 }
-                else if ((AgeType == 2 && Systolic >= 140 && Systolic <= 190) && (Diastolic >= 90 && Diastolic <= 100))
+                else if ((AgeType == 2 && Systolic >= 117 && Systolic <= 120) && (Diastolic >= 80 && Diastolic <= 81))
                 {
                     return BPCategory.High;
                 }
