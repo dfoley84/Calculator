@@ -16,7 +16,6 @@ export const options = {
         loadimpact: {
             distribution: {
                 'amazon:us:ashburn': { loadZone: 'amazon:us:ashburn', percent: 100 },
-
             },
         },
     },
