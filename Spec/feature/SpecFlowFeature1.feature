@@ -1,7 +1,9 @@
-﻿﻿Feature: Getting BP
-	Simple Test for getting BP
+﻿# Gherkin DSL
 
-#Scenario Get Low BP
-Scenario: Getting Low BP
-  When I fill out the mandartory details 1, 70 and 40
-  Then Low Blood Pressure
+Feature: Getting Blood Pressure
+
+# scenario 1
+Scenario: Get Low Blood Pressure
+	Given the Systolic is 70
+	When the Diastolic is 60
+	Then the bloodpressure be "Low"
