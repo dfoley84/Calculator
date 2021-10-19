@@ -29,7 +29,7 @@ namespace Spec.Steps
         {
             Console.WriteLine(p2);
             BPCategory category = bloodpressure.Category;
-            Assert.AreEqual(category, p2.ToString());
+            Assert.AreEqual(category.ToString(), p2.ToString());
         }
 
     }
