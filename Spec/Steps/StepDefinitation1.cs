@@ -25,11 +25,11 @@ namespace Spec.Steps
         }
         
         [Then(@"the bloodpressure be '(.*)'")]
-        public void ThenTheBloodpressureBe(string Result)
+        public void ThenTheBloodpressureBe(string p2)
         {
+            Console.WriteLine(p2);
             BPCategory category = bloodpressure.Category;
-            Assert.AreEqual(category, Result);
-            Console.WriteLine(Result);
+            Assert.AreEqual(category, p2);
         }
 
     }
