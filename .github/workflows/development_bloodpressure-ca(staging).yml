@@ -27,8 +27,7 @@ jobs:
         run: dotnet test BPCalculator.Tests/BPCalculator.Tests.csproj --collect "Code coverage"
         
       - name: Run SpecFlow
-        run: dotnet test Spec/Spec.csproj --verbosity normal -l:trx
-
+        run: dotnet test Spec/Spec.csproj --collect "Code coverage"
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
