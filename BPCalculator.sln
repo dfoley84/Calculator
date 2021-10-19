@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BPCalculator", "BPCalculato
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BPCalculator.Tests", "BPCalculator.Tests\BPCalculator.Tests.csproj", "{D2376BD3-74CA-4A3E-85F4-39AFEBD6459C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gherkin", "Gherkin\Gherkin.csproj", "{C394F342-A979-4713-B6EC-6497028A63FF}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D0D69B53-DD00-4325-B901-E769BEF16125}"
 	ProjectSection(SolutionItems) = preProject
 		k6.js = k6.js
