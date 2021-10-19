@@ -24,8 +24,8 @@ namespace Spec.Steps
             };
         }
         
-        [Then(@"the bloodpressure be '(.*)'")]
-        public void ThenTheMessageShouldBeLowBloodPressure(string Result)
+        [Then(@"the bloodpressure be ""(.*)""")]
+        public void ThenTheBloodpressureBe(string Result)
         {
             BPCategory category = bloodpressure.Category;
             Assert.AreEqual(category, Result);
