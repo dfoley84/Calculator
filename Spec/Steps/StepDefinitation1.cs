@@ -20,7 +20,7 @@ namespace Spec.Steps
                 bloodpressure.AgeType = 1;
                 bloodpressure.Systolic = p0;
                 bloodpressure.Diastolic = p1;
-                Console.Write(p0);
+                Console.WriteLine(p0);
 
             };
         } 
@@ -30,7 +30,7 @@ namespace Spec.Steps
         {
             BPCategory category = bloodpressure.Category;
             Assert.AreEqual(category, Result);
-            Console.Write(Result);
+            Console.WriteLine(Result);
         }
 
     }
