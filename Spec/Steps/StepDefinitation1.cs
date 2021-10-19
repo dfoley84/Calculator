@@ -10,10 +10,9 @@ namespace Spec.Steps
     class StepDefinition1
     {
         private BloodPressure bloodpressure;
-
-        [Given()]
-        [When(@" the Systolic is (.*) and Diastolic is (.*)")]
-        public void theSystolicis(int p0, int p1)
+        
+        [When(@"the Systolic is (.*) and Diastolic is (.*)")]
+        public void WhenTheSystolicIsAndDiastolicIs(int p0, int p1)
         {
             bloodpressure = new BloodPressure();
             {
@@ -23,8 +22,8 @@ namespace Spec.Steps
                 Console.WriteLine(p0);
 
             };
-        } 
-         
+        }
+        
         [Then(@"the bloodpressure be (.*)")]
         public void ThenTheMessageShouldBeLowBloodPressure(string Result)
         {
