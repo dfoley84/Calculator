@@ -14,8 +14,8 @@ Scenario: Get Ideal Blood Pressure
 	
 
 # scenario 3
-Scenario: Get Pre-High Blood Pressure
-	When the Systolic is 120 and Diastolic is 80
+Scenario: Get PreHigh Blood Pressure
+	When the Systolic is 120 and Diastolic is 81
 	Then the bloodpressure be 'PreHigh'
 
 # scenario 4
