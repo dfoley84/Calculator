@@ -1,6 +1,7 @@
 using BPCalculator;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
+using System;
 
 namespace Spec.Steps
 {
@@ -19,6 +20,8 @@ namespace Spec.Steps
                 bloodpressure.AgeType = 1;
                 bloodpressure.Systolic = p0;
                 bloodpressure.Diastolic = p1;
+                Console.Write(p0);
+
             };
         } 
          
@@ -27,6 +30,7 @@ namespace Spec.Steps
         {
             BPCategory category = bloodpressure.Category;
             Assert.AreEqual(category, Result);
+            Console.Write(Result);
         }
 
     }
