@@ -24,7 +24,7 @@ namespace Spec.Steps
             };
         }
         
-        [Then(@"the bloodpressure be (.*)")]
+        [Then(@"the bloodpressure be '(.*)'")]
         public void ThenTheMessageShouldBeLowBloodPressure(string Result)
         {
             BPCategory category = bloodpressure.Category;
