@@ -1,4 +1,4 @@
-﻿using BPCalculator;
+using BPCalculator;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
@@ -10,18 +10,19 @@ namespace Spec.Steps
     {
         private BloodPressure bloodpressure;
 
-        [When(@"I fill out the mandartory details (.*), (.*) and (.*)")]
-        public void WhenIFillOutTheMandartoryDetailsAnd(int p0, int p1, int p2)
+        [Given()]
+        [When(@" the Systolic is (.*) and Diastolic is (.*)")]
+        public void theSystolicis(int p0, int p1)
         {
-            bloodpressure = new BloodPressure()
+            bloodpressure = new BloodPressure();
             {
-                AgeType = p0,
-                Systolic = p1,
-                Diastolic = p2
+                bloodpressure.AgeType = 1;
+                bloodpressure.Systolic = p0;
+                bloodpressure.Diastolic = p1;
             };
-        }
-
-        [Then(@"the message should be (.*)")]
+        } 
+         
+        [Then(@"the bloodpressure be (.*)")]
         public void ThenTheMessageShouldBeLowBloodPressure(string Result)
         {
             BPCategory category = bloodpressure.Category;
