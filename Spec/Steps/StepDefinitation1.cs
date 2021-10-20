@@ -14,7 +14,6 @@ namespace Spec.Steps
         [Given(@"That the user opens up Chrome and navigate to the Web URL")]
         public void GivenThatTheUserOpensUpChromeAndNavigateToTheWebURL()
         {
-            _scenarioContext.Pending();
         }
         
         [When(@"the Systolic is (.*) and Diastolic is (.*)")]
