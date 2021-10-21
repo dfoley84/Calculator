@@ -1,0 +1,13 @@
+name: Docker Push
+on:
+  workflow_dispatch:
+jobs:
+ 
+  Publish-Container:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: docker login
+      run: |
+        docker pull nfoley84/powerclicore:latest
+  
