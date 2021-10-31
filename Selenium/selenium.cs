@@ -219,16 +219,8 @@ namespace Selenium
                 webDriver.FindElement(By.Name("BP.Diastolic")).SendKeys("60");
                 webDriver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
                 Assert.IsTrue(webDriver.FindElement(By.TagName("body")).Text.Contains("The Systolic field is required"));
-            
+                webDriver.Quit();
 
-        }
-
-
-
-        [TearDown]
-        public void Teardown()
-        {
-            webDriver.Quit();
         }
     }
 }
