@@ -144,5 +144,18 @@ namespace Selenium
             webDriver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
             Assert.IsTrue(webDriver.FindElement(By.TagName("body")).Text.Contains("The Systolic field is required"));
         }
+          [Test]
+        public void TeenLowBloodPressure()
+        {
+            webDriver.Navigate().GoToUrl("https://bpcalculatorca-dev.azurewebsites.net/");
+            SelectElement selectElement = new SelectElement(webDriver.FindElement(By.Name("BP.AgeType")));
+            selectElement.SelectByIndex(1);
+            webDriver.FindElement(By.Name("BP.Systolic")).Clear();
+            webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("70");
+            webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
+            webDriver.FindElement(By.Name("BP.Diastolic")).SendKeys("60");
+            webDriver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
+            Assert.IsTrue(webDriver.FindElement(By.TagName("body")).Text.Contains("Low Blood Pressure"));
+        }
     }
 }
