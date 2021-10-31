@@ -92,11 +92,13 @@ jobs:
           slot-name: 'dev'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_ED6A15782C5C4810A10305AACEA7ADF5 }}
           package: .
+      - name: Selenium Testing
+        run: dotnet test ./Selenium.dll --logger:"trx;LogFileName=selenium.trx"
   
   k6_load_test:
     name: k6 Load Testing
     runs-on: ubuntu-latest
-    needs: deploy_to_staging
+    needs: Deploy_To_Staging
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -136,7 +138,7 @@ jobs:
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
         
       - name: Run NUnit Unit Testing
-        run: dotnet test Selenium/Selenium.csproj --collect "Code coverage"
+        run: dotnet test ./Selenium.dll --collect "Code coverage"
 
   Deploy_to_Production:
     runs-on: ubuntu-latest
