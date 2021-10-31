@@ -136,7 +136,7 @@ jobs:
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
         
       - name: Run NUnit Unit Testing
-        run: dotnet test ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp/Selenium.dll /Settings:Selenium.runsettings --collect "Code coverage"
+        run: dotnet test Selenium/Selenium.csproj --collect "Code coverage"
 
   Deploy_to_Production:
     runs-on: ubuntu-latest
