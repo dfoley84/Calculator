@@ -24,7 +24,7 @@ namespace Selenium
         public void WebTitle()
         {
             webDriver.Navigate().GoToUrl(URL);
-            string pageTitle = driver.Title;
+            string pageTitle = webDriver.Title;
             Assert.AreEqual("BP Category Calculator - BPCalculator", pageTitle);
         }
 
