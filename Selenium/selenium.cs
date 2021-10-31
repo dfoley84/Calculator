@@ -24,14 +24,14 @@ namespace Selenium
         public void WebTitle()
         {
             webDriver.Navigate().GoToUrl(URL);
-            string pageTitle = webDriver.Title;
+            string pageTitle = driver.Title;
             Assert.AreEqual("BP Category Calculator - BPCalculator", pageTitle);
         }
 
         [Test]
         public void LowBloodPressure()
         {
-        
+            using IWebDriver driver = new ChromeDriver(chromeDriverPath);
             webDriver.Navigate().GoToUrl(URL);
             webDriver.FindElement(By.Name("BP.Systolic")).Clear();
             webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("70");
@@ -219,9 +219,16 @@ namespace Selenium
                 webDriver.FindElement(By.Name("BP.Diastolic")).SendKeys("60");
                 webDriver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
                 Assert.IsTrue(webDriver.FindElement(By.TagName("body")).Text.Contains("The Systolic field is required"));
-                webDriver.Quit();
+            
 
         }
 
+
+
+        [TearDown]
+        public void Teardown()
+        {
+            webDriver.Quit();
+        }
     }
 }
