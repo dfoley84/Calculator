@@ -17,7 +17,6 @@ namespace Selenium
         [SetUp]
         public void Setup()
         {
-                  webDriver.Navigate().GoToUrl(URL);
         }
 
         [Test]
