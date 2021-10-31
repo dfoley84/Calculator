@@ -31,7 +31,7 @@ namespace Selenium
         [Test]
         public void LowBloodPressure()
         {
-            using IWebDriver driver = new ChromeDriver(chromeDriverPath);
+          
             webDriver.Navigate().GoToUrl(URL);
             webDriver.FindElement(By.Name("BP.Systolic")).Clear();
             webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("70");
