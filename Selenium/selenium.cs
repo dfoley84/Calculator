@@ -10,8 +10,8 @@ namespace Selenium
     public class Selenium
     {
         public String chromeDriverPath = Environment.GetEnvironmentVariable("ChromeWebDriver");
-        private const string URL = "https://bloodpressure-ca-staging.azurewebsites.net";
-        private const string URL1 = "localhost:5315";
+        private const string URL = "https://bpcalculatorca-dev.azurewebsites.net/";
+        //private const string URL1 = "localhost:5315";
         //IWebDriver webDriver = new ChromeDriver();
 
 
