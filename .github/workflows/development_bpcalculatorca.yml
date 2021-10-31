@@ -4,9 +4,6 @@
 name: Build and deploy ASP.Net Core app to Azure Web App - bpcalculatorca
 
 on:
-  push:
-    branches:
-      - Development
   workflow_dispatch:
 
 jobs:
