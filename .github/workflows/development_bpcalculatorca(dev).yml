@@ -92,6 +92,7 @@ jobs:
           slot-name: 'dev'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_ED6A15782C5C4810A10305AACEA7ADF5 }}
           package: .
+          
       - name: Selenium Test
         run: dotnet test ./Selenium.dll --logger:"trx;LogFileName=selenium.trx"
   
