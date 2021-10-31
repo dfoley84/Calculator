@@ -4,11 +4,14 @@
 name: Build and deploy ASP.Net Core app to Azure Web App - bpcalculatorca
 
 on:
+  push:
+    branches:
+      - Development
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -32,7 +35,7 @@ jobs:
           path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
     environment:
       name: 'Production'
@@ -50,5 +53,5 @@ jobs:
         with:
           app-name: 'bpcalculatorca'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B69182F21EEF44769377F8B3297BF476 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B0A51289E40F4536BF76DD76860A6580 }}
           package: .
