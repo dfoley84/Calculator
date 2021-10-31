@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
