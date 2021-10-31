@@ -9,9 +9,8 @@ namespace Selenium
 {
     public class Selenium
     {
-       // public String chromeDriverPath = Environment.GetEnvironmentVariable("ChromeWebDriver");
+      
         private const string URL = "https://bpcalculatorca-dev.azurewebsites.net/";
-        //private const string URL1 = "localhost:5315";
         IWebDriver webDriver = new ChromeDriver();
 
 
@@ -25,7 +24,7 @@ namespace Selenium
         public void WebTitle()
         {
             webDriver.Navigate().GoToUrl(URL);
-            string pageTitle = driver.Title;
+            string pageTitle = webDriver.Title;
             Assert.AreEqual("BP Category Calculator - BPCalculator", pageTitle);
         }
 
