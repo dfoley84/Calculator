@@ -90,7 +90,7 @@ jobs:
         with:
           app-name: 'bpcalculatorca(dev)'
           slot-name: 'dev'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_85902a6fc8e54d5fbda6e37cafbc093a }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_409EF46AA6874914BACF002389FDB73E }}
           package: .
   
   k6_load_test:
@@ -137,6 +137,6 @@ jobs:
         with:
           app-name: 'bpcalculatorca'
           slot-name: 'production'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_1234 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B69182F21EEF44769377F8B3297BF476 }}
           package: .
    
