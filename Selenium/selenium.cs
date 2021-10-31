@@ -9,27 +9,22 @@ namespace Selenium
 {
     public class Selenium
     {
-        public String chromeDriverPath = Environment.GetEnvironmentVariable("ChromeWebDriver");
+       // public String chromeDriverPath = Environment.GetEnvironmentVariable("ChromeWebDriver");
         private const string URL = "https://bpcalculatorca-dev.azurewebsites.net/";
         //private const string URL1 = "localhost:5315";
-        //IWebDriver webDriver = new ChromeDriver();
+        IWebDriver webDriver = new ChromeDriver();
 
 
         [SetUp]
         public void Setup()
         {
-            //webDriver.Navigate().GoToUrl
-            if (chromeDriverPath is null)
-            {
-                chromeDriverPath = ".";                 // for IDE
-            }
+                  webDriver.Navigate().GoToUrl(URL);
         }
 
         [Test]
         public void WebTitle()
         {
-            using IWebDriver driver = new ChromeDriver(chromeDriverPath);
-            driver.Navigate().GoToUrl(URL);
+            webDriver.Navigate().GoToUrl(URL);
             string pageTitle = driver.Title;
             Assert.AreEqual("BP Category Calculator - BPCalculator", pageTitle);
         }
@@ -38,30 +33,28 @@ namespace Selenium
         public void LowBloodPressure()
         {
             using IWebDriver driver = new ChromeDriver(chromeDriverPath);
-            driver.Navigate().GoToUrl(URL);
-            driver.FindElement(By.Name("BP.Systolic")).Clear();
-            driver.FindElement(By.Name("BP.Systolic")).SendKeys("70");
-            driver.FindElement(By.Name("BP.Diastolic")).Clear();
-            driver.FindElement(By.Name("BP.Diastolic")).SendKeys("60");
-            driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("Low Blood Pressure"));
+            webDriver.Navigate().GoToUrl(URL);
+            webDriver.FindElement(By.Name("BP.Systolic")).Clear();
+            webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("70");
+            webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
+            webDriver.FindElement(By.Name("BP.Diastolic")).SendKeys("60");
+            webDriver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
+            Assert.IsTrue(webDriver.FindElement(By.TagName("body")).Text.Contains("Low Blood Pressure"));
         }
 
         [Test]
         public void TeenLowBloodPressure()
         {
-            using IWebDriver driver = new ChromeDriver(chromeDriverPath);
-            driver.Navigate().GoToUrl(URL);
 
-            SelectElement selectElement = new SelectElement(driver.FindElement(By.Name("BP.AgeType")));
+            webDriver.Navigate().GoToUrl(URL);
+            SelectElement selectElement = new SelectElement(webDriver.FindElement(By.Name("BP.AgeType")));
             selectElement.SelectByIndex(1);
-
-            driver.FindElement(By.Name("BP.Systolic")).Clear();
-            driver.FindElement(By.Name("BP.Systolic")).SendKeys("70");
-            driver.FindElement(By.Name("BP.Diastolic")).Clear();
-            driver.FindElement(By.Name("BP.Diastolic")).SendKeys("60");
-            driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("Low Blood Pressure"));
+            webDriver.FindElement(By.Name("BP.Systolic")).Clear();
+            webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("70");
+            webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
+            webDriver.FindElement(By.Name("BP.Diastolic")).SendKeys("60");
+            webDriver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
+            Assert.IsTrue(webDriver.FindElement(By.TagName("body")).Text.Contains("Low Blood Pressure"));
         }
 
 
@@ -69,73 +62,68 @@ namespace Selenium
         [Test]
         public void IdealBloodPressure()
         {
-            using IWebDriver driver = new ChromeDriver(chromeDriverPath);
-            driver.Navigate().GoToUrl(URL);
-            driver.FindElement(By.Name("BP.Systolic")).Clear();
-            driver.FindElement(By.Name("BP.Systolic")).SendKeys("95");
-            driver.FindElement(By.Name("BP.Diastolic")).Clear();
-            driver.FindElement(By.Name("BP.Diastolic")).SendKeys("60");
-            driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("Ideal Blood Pressure"));
+            webDriver.Navigate().GoToUrl(URL);
+            webDriver.FindElement(By.Name("BP.Systolic")).Clear();
+            webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("95");
+            webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
+            webDriver.FindElement(By.Name("BP.Diastolic")).SendKeys("60");
+            webDriver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
+            Assert.IsTrue(webDriver.FindElement(By.TagName("body")).Text.Contains("Ideal Blood Pressure"));
         }
 
         [Test]
         public void TeenIdealBloodPressure()
         {
-            using IWebDriver driver = new ChromeDriver(chromeDriverPath);
-            driver.Navigate().GoToUrl(URL);
-            SelectElement selectElement = new SelectElement(driver.FindElement(By.Name("BP.AgeType")));
-            selectElement.SelectByIndex(1);
 
-            driver.FindElement(By.Name("BP.Systolic")).Clear();
-            driver.FindElement(By.Name("BP.Systolic")).SendKeys("106");
-            driver.FindElement(By.Name("BP.Diastolic")).Clear();
-            driver.FindElement(By.Name("BP.Diastolic")).SendKeys("78");
-            driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("Ideal Blood Pressure"));
+            webDriver.Navigate().GoToUrl(URL);
+            SelectElement selectElement = new SelectElement(webDriver.FindElement(By.Name("BP.AgeType")));
+            selectElement.SelectByIndex(1);
+            webDriver.FindElement(By.Name("BP.Systolic")).Clear();
+            webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("106");
+            webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
+            webDriver.FindElement(By.Name("BP.Diastolic")).SendKeys("78");
+            webDriver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
+            Assert.IsTrue(webDriver.FindElement(By.TagName("body")).Text.Contains("Ideal Blood Pressure"));
         }
 
 
         [Test]
         public void PreHighBloodPressure()
         {
-            using IWebDriver driver = new ChromeDriver(chromeDriverPath);
-            driver.Navigate().GoToUrl(URL);
-            driver.FindElement(By.Name("BP.Systolic")).Clear();
-            driver.FindElement(By.Name("BP.Systolic")).SendKeys("125");
-            driver.FindElement(By.Name("BP.Diastolic")).Clear();
-            driver.FindElement(By.Name("BP.Diastolic")).SendKeys("80");
-            driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("Pre-High Blood Pressure"));
+            webDriver.Navigate().GoToUrl(URL);
+            webDriver.FindElement(By.Name("BP.Systolic")).Clear();
+            webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("125");
+            webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
+            webDriver.FindElement(By.Name("BP.Diastolic")).SendKeys("80");
+            webDriver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
+            Assert.IsTrue(webDriver.FindElement(By.TagName("body")).Text.Contains("Pre-High Blood Pressure"));
         }
 
         [Test]
         public void HighBloodPressure()
         {
-            using IWebDriver driver = new ChromeDriver(chromeDriverPath);
-            driver.Navigate().GoToUrl(URL);
-            driver.FindElement(By.Name("BP.Systolic")).Clear();
-            driver.FindElement(By.Name("BP.Systolic")).SendKeys("190");
-            driver.FindElement(By.Name("BP.Diastolic")).Clear();
-            driver.FindElement(By.Name("BP.Diastolic")).SendKeys("100");
-            driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("High Blood Pressure"));
+            webDriver.Navigate().GoToUrl(URL);
+            webDriver.FindElement(By.Name("BP.Systolic")).Clear();
+            webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("190");
+            webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
+            webDriver.FindElement(By.Name("BP.Diastolic")).SendKeys("100");
+            webDriver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
+            Assert.IsTrue(webDriver.FindElement(By.TagName("body")).Text.Contains("High Blood Pressure"));
         }
 
         [Test]
         public void TeenHighBloodPressure()
         {
-            using IWebDriver driver = new ChromeDriver(chromeDriverPath);
-            driver.Navigate().GoToUrl(URL);
-            SelectElement selectElement = new SelectElement(driver.FindElement(By.Name("BP.AgeType")));
-            selectElement.SelectByIndex(1);
 
-            driver.FindElement(By.Name("BP.Systolic")).Clear();
-            driver.FindElement(By.Name("BP.Systolic")).SendKeys("118");
-            driver.FindElement(By.Name("BP.Diastolic")).Clear();
-            driver.FindElement(By.Name("BP.Diastolic")).SendKeys("80");
-            driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("High Blood Pressure"));
+            webDriver.Navigate().GoToUrl(URL);
+            SelectElement selectElement = new SelectElement(webDriver.FindElement(By.Name("BP.AgeType")));
+            selectElement.SelectByIndex(1);
+            webDriver.FindElement(By.Name("BP.Systolic")).Clear();
+            webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("118");
+            webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
+            webDriver.FindElement(By.Name("BP.Diastolic")).SendKeys("80");
+            webDriver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
+            Assert.IsTrue(webDriver.FindElement(By.TagName("body")).Text.Contains("High Blood Pressure"));
         }
 
 
@@ -143,14 +131,14 @@ namespace Selenium
         [Test]
         public void UnkownBloodPressure()
         {
-            using IWebDriver driver = new ChromeDriver(chromeDriverPath);
-            driver.Navigate().GoToUrl(URL);
-            driver.FindElement(By.Name("BP.Systolic")).Clear();
-            driver.FindElement(By.Name("BP.Systolic")).SendKeys("100");
-            driver.FindElement(By.Name("BP.Diastolic")).Clear();
-            driver.FindElement(By.Name("BP.Diastolic")).SendKeys("90");
-            driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("No Blood Pressure Found"));
+        
+            webDriver.Navigate().GoToUrl(URL);
+            webDriver.FindElement(By.Name("BP.Systolic")).Clear();
+            webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("100");
+            webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
+            webDriver.FindElement(By.Name("BP.Diastolic")).SendKeys("90");
+            webDriver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
+            Assert.IsTrue(webDriver.FindElement(By.TagName("body")).Text.Contains("No Blood Pressure Found"));
         }
 
 
@@ -158,14 +146,13 @@ namespace Selenium
         public void SystolicMustbeGreater()
         {
            
-                using IWebDriver driver = new ChromeDriver(chromeDriverPath);
-                driver.Navigate().GoToUrl(URL);
-                driver.FindElement(By.Name("BP.Systolic")).Clear();
-                driver.FindElement(By.Name("BP.Systolic")).SendKeys("70");
-                driver.FindElement(By.Name("BP.Diastolic")).Clear();
-                driver.FindElement(By.Name("BP.Diastolic")).SendKeys("90");
-                driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
-                Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("Systolic must be greater than Diastolic"));
+                webDriver.Navigate().GoToUrl(URL);
+                webDriver.FindElement(By.Name("BP.Systolic")).Clear();
+                webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("70");
+                webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
+                webDriver.FindElement(By.Name("BP.Diastolic")).SendKeys("90");
+                webDriver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
+                Assert.IsTrue(webDriver.FindElement(By.TagName("body")).Text.Contains("Systolic must be greater than Diastolic"));
             
 
         }
@@ -174,14 +161,14 @@ namespace Selenium
         public void InvalidDiastolicValue()
         {
             
-                using IWebDriver driver = new ChromeDriver(chromeDriverPath);
-                driver.Navigate().GoToUrl(URL);
-                driver.FindElement(By.Name("BP.Systolic")).Clear();
-                driver.FindElement(By.Name("BP.Systolic")).SendKeys("90");
-                driver.FindElement(By.Name("BP.Diastolic")).Clear();
-                driver.FindElement(By.Name("BP.Diastolic")).Click();
-                driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
-                Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("The Diastolic field is required"));
+              
+                webDriver.Navigate().GoToUrl(URL);
+                webDriver.FindElement(By.Name("BP.Systolic")).Clear();
+                webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("90");
+                webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
+                webDriver.FindElement(By.Name("BP.Diastolic")).Click();
+                webDriver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
+                Assert.IsTrue(webDriver.FindElement(By.TagName("body")).Text.Contains("The Diastolic field is required"));
 
             
 
@@ -191,14 +178,14 @@ namespace Selenium
         public void WrongSystolicValue()
         {
             
-                using IWebDriver driver = new ChromeDriver(chromeDriverPath);
-                driver.Navigate().GoToUrl(URL);
-                driver.FindElement(By.Name("BP.Systolic")).Clear();
-                driver.FindElement(By.Name("BP.Systolic")).SendKeys("200");
-                driver.FindElement(By.Name("BP.Diastolic")).Clear();
-                driver.FindElement(By.Name("BP.Diastolic")).SendKeys("60");
-                driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
-                Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("Invalid Systolic Value"));
+    
+                webDriver.Navigate().GoToUrl(URL);
+                webDriver.FindElement(By.Name("BP.Systolic")).Clear();
+                webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("200");
+                webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
+                webDriver.FindElement(By.Name("BP.Diastolic")).SendKeys("60");
+                webDriver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
+                Assert.IsTrue(webDriver.FindElement(By.TagName("body")).Text.Contains("Invalid Systolic Value"));
 
             
 
@@ -208,14 +195,14 @@ namespace Selenium
         public void WrongDiastolicValue()
         {
             
-                using IWebDriver driver = new ChromeDriver(chromeDriverPath);
-                driver.Navigate().GoToUrl(URL);
-                driver.FindElement(By.Name("BP.Systolic")).Clear();
-                driver.FindElement(By.Name("BP.Systolic")).SendKeys("70");
-                driver.FindElement(By.Name("BP.Diastolic")).Clear();
-                driver.FindElement(By.Name("BP.Diastolic")).SendKeys("200");
-                driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
-                Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("Invalid Diastolic Value"));
+    
+                webDriver.Navigate().GoToUrl(URL);
+                webDriver.FindElement(By.Name("BP.Systolic")).Clear();
+                webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("70");
+                webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
+                webDriver.FindElement(By.Name("BP.Diastolic")).SendKeys("200");
+                webDriver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
+                Assert.IsTrue(webDriver.FindElement(By.TagName("body")).Text.Contains("Invalid Diastolic Value"));
 
             
 
@@ -225,14 +212,14 @@ namespace Selenium
         public void InvalidSystolicValue()
         {
             
-                using IWebDriver driver = new ChromeDriver(chromeDriverPath);
-                driver.Navigate().GoToUrl(URL); 
-                driver.FindElement(By.Name("BP.Systolic")).Clear();
-                driver.FindElement(By.Name("BP.Systolic")).Click();
-                driver.FindElement(By.Name("BP.Diastolic")).Clear();
-                driver.FindElement(By.Name("BP.Diastolic")).SendKeys("60");
-                driver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
-                Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("The Systolic field is required"));
+  
+                webDriver.Navigate().GoToUrl(URL); 
+                webDriver.FindElement(By.Name("BP.Systolic")).Clear();
+                webDriver.FindElement(By.Name("BP.Systolic")).Click();
+                webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
+                webDriver.FindElement(By.Name("BP.Diastolic")).SendKeys("60");
+                webDriver.FindElement(By.XPath("//input[@value='Submit']")).Submit();
+                Assert.IsTrue(webDriver.FindElement(By.TagName("body")).Text.Contains("The Systolic field is required"));
             
 
         }
@@ -242,8 +229,7 @@ namespace Selenium
         [TearDown]
         public void Teardown()
         {
-            using IWebDriver driver = new ChromeDriver(chromeDriverPath);
-            driver.Quit();
+            webDriver.Quit();
         }
     }
 }
