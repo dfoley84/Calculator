@@ -41,7 +41,7 @@ export let options = {
             // See https://docs.k6.io/docs/cloud-execution#section-cloud-execution-options
             //
             distribution: {
-                loadZoneLabel1: { loadZone: "amazon:us:ashburn'", percent: 100 },
+                loadZoneLabel1: { loadZone: "amazon:us:columbus", percent: 100 },
 
                 // Uncomment this and make sure percentage distribution adds up to 100 to use two load zones.
                 // loadZoneLabel2: { loadZone: "amazon:us:ashburn", percent: 50 }
