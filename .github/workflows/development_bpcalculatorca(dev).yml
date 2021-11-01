@@ -65,7 +65,6 @@ jobs:
           args: >
             --failOnCVSS 7            
           # fail if CVSS score (CVE scoring system) is High >=7
-          
       - name: Upload Test results
         uses: actions/upload-artifact@master
         with:
