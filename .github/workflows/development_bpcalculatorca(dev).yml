@@ -151,6 +151,8 @@ jobs:
   Deploy_To_Production:
            runs-on: windows-latest
            needs: Owasp
+           environment:
+             name: 'production'
            steps:
              - name: OIDC Login to Azure Public Cloud with AzPowershell (enableAzPSSession true)
                uses: azure/login@v1
