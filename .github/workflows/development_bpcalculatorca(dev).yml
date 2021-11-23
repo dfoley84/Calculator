@@ -38,7 +38,7 @@ jobs:
           path: ${{env.DOTNET_ROOT}}/myapp
 
   Azure-login:
-        runs-on: ubuntu-latest
+        runs-on: windows-latest
         steps:
           - name: OIDC Login to Azure Public Cloud with AzPowershell (enableAzPSSession true)
             uses: azure/login@v1
@@ -48,20 +48,15 @@ jobs:
             run: |
               echo "::set-output name=PUBLISH_PROFILE::$(az webapp deployment list-publishing-profiles -g 'ca3' -n 'webapp-ca2' --xml)"
             id: getPublishProfile
-
-  Deploy_To_Staging:
-    runs-on: windows-latest
-    needs: build
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v2
-        with:
-          name: .net-app
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: 'webapp-ca2'
-          slot-name: 'production'
-          publish-profile: ${{ steps.getPublishProfile.outputs.PUBLISH_PROFILE }}
-          package: .
+          - name: Download artifact from build job
+            uses: actions/download-artifact@v2
+            with:
+              name: .net-app
+          - name: Deploy to Azure Web App
+            id: deploy-to-webapp
+            uses: azure/webapps-deploy@v2
+            with:
+              app-name: 'webapp-ca2'
+              slot-name: 'production'
+              publish-profile: ${{ steps.getPublishProfile.outputs.PUBLISH_PROFILE }}
+              package: .
