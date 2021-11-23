@@ -39,7 +39,7 @@ jobs:
           path: ${{env.DOTNET_ROOT}}/myapp
 
   Azure-login:
-        runs-on: windows-latest
+        runs-on: ubuntu-latest
         needs: build
         steps:
           - name: OIDC Login to Azure Public Cloud with AzPowershell (enableAzPSSession true)
@@ -69,7 +69,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'webapp-ca2'
-          slot-name: 'dev'
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-          publish-profile: ${{ steps.getPublishProfile.outputs.PUBLISH_PROFILE }}
+          slot-name: 'production'
+          publish-profile: ${{steps.getPublishProfile.outputs.PUBLISH_PROFILE}}
           package: .
