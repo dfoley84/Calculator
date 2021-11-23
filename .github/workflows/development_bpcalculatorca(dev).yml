@@ -70,5 +70,6 @@ jobs:
         with:
           app-name: 'webapp-ca2'
           slot-name: 'dev'
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
           publish-profile: ${{ steps.getPublishProfile.outputs.PUBLISH_PROFILE }}
           package: .
