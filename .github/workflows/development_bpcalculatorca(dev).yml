@@ -40,6 +40,7 @@ jobs:
 
   Azure-login:
         runs-on: windows-latest
+        needs: build
         steps:
           - name: OIDC Login to Azure Public Cloud with AzPowershell (enableAzPSSession true)
             uses: azure/login@v1
@@ -53,7 +54,7 @@ jobs:
 
   Deploy_To_Staging:
     runs-on: windows-latest
-    needs: build
+    needs: Azure-login
     environment:
       name: 'dev'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
