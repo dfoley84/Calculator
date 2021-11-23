@@ -18,12 +18,9 @@ jobs:
           with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
             enable-AzPSSession: true
-          env: # Or as an environment variable
-            creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-        - name: 'Get RG with powershell action'
-          uses: azure/powershell@v1
-          with:
-             inlineScript: |
-               Get-AzResourceGroup
-               azPSVersion: "latest"atest"
+        - name: Get Publish Profile
+          run: |
+            echo "::set-output name=PUBLISH_PROFILE::$(az webapp deployment list-publishing-profiles -g 'resource-group-name' -n 'app-service-name' --xml)"
+          id: getPublishProfile
+          
+ 
