@@ -16,8 +16,10 @@ jobs:
         - name: OIDC Login to Azure Public Cloud with AzPowershell (enableAzPSSession true)
           uses: azure/login@v1
           with:
-            creds: ${{ secrets.AZURE_CREDENTIALS }}
+            credentials: ${{ secrets.AZURE_CREDENTIALS }}
             enable-AzPSSession: true
+          env: # Or as an environment variable
+            credentials: ${{ secrets.AZURE_CREDENTIALS }}
 
         - name: 'Get RG with powershell action'
           uses: azure/powershell@v1
