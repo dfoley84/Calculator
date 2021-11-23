@@ -20,7 +20,7 @@ jobs:
             enable-AzPSSession: true
         - name: Get Publish Profile
           run: |
-            echo "::set-output name=PUBLISH_PROFILE::$(az webapp deployment list-publishing-profiles -g 'resource-group-name' -n 'app-service-name' --xml)"
+            echo "::set-output name=PUBLISH_PROFILE::$(az webapp deployment list-publishing-profiles -g 'ca3' -n 'webapp-ca2' --xml)"
           id: getPublishProfile
           
  
