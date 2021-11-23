@@ -58,6 +58,6 @@ jobs:
             uses: azure/webapps-deploy@v2
             with:
               app-name: 'webapp-ca2'
-              slot-name: 'dev'
+              slot-name: 'webapp-ca2dev'
               publish-profile: ${{ steps.getPublishProfile.outputs.PUBLISH_PROFILE }}
               package: .
