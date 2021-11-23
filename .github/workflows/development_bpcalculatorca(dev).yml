@@ -14,7 +14,6 @@ on:
     branches:
       - Development
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -38,28 +37,21 @@ jobs:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
 
-  build_test_deploy:
-    name: 'FunctionApp Build, Test & Deploy'
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout the repo
-      uses: actions/checkout@v2
-    - name: Get FunctionApp publish profile
-      id: publishprofile
-      uses: aliencube/publish-profile-actions@v1
-      env:
-        AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
-      with:
-        resourceGroupName: 'ca3'
-        appName: 'webapp-ca2'
+  Azure-login:
+        runs-on: ubuntu-latest
+        steps:
+          - name: OIDC Login to Azure Public Cloud with AzPowershell (enableAzPSSession true)
+            uses: azure/login@v1
+            with:
+              creds: ${{ secrets.AZURE_CREDENTIALS }}
+          - name: Get Publish Profile
+            run: |
+              echo "::set-output name=PUBLISH_PROFILE::$(az webapp deployment list-publishing-profiles -g 'ca3' -n 'webapp-ca2' --xml)"
+            id: getPublishProfile
 
   Deploy_To_Staging:
     runs-on: windows-latest
-    needs: build_test_deploy
-    environment:
-      name: 'dev'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-      
+    needs: build
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
@@ -71,5 +63,5 @@ jobs:
         with:
           app-name: 'webapp-ca2'
           slot-name: 'production'
-          publish-profile: ${{steps.publishprofile.outputs.profile }}
+          publish-profile: ${{ steps.getPublishProfile.outputs.PUBLISH_PROFILE }}
           package: .
