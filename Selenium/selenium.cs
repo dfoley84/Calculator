@@ -14,13 +14,13 @@ namespace Selenium
         [SetUp]
         public void Setup()
         {
-            webDriver.Navigate().GoToUrl("https://bpcalculatorca-dev.azurewebsites.net/");
+            webDriver.Navigate().GoToUrl("http://webapp-ca2-webapp-ca2dev.azurewebsites.net/");
         }
 
         [Test]
         public void LowBloodPressure()
         {
-            webDriver.Navigate().GoToUrl("https://bpcalculatorca-dev.azurewebsites.net/");
+            webDriver.Navigate().GoToUrl("http://webapp-ca2-webapp-ca2dev.azurewebsites.net/");
             webDriver.FindElement(By.Name("BP.Systolic")).Clear();
             webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("70");
             webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
@@ -32,7 +32,7 @@ namespace Selenium
         [Test]
         public void IdealBloodPressure()
         {
-            webDriver.Navigate().GoToUrl("https://bpcalculatorca-dev.azurewebsites.net/");
+            webDriver.Navigate().GoToUrl("http://webapp-ca2-webapp-ca2dev.azurewebsites.net/");
             webDriver.FindElement(By.Name("BP.Systolic")).Clear();
             webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("95");
             webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
@@ -44,7 +44,7 @@ namespace Selenium
         [Test]
         public void PreHighBloodPressure()
         {
-            webDriver.Navigate().GoToUrl("https://bpcalculatorca-dev.azurewebsites.net/");
+            webDriver.Navigate().GoToUrl("http://webapp-ca2-webapp-ca2dev.azurewebsites.net/");
             webDriver.FindElement(By.Name("BP.Systolic")).Clear();
             webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("125");
             webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
@@ -56,7 +56,7 @@ namespace Selenium
         [Test]
         public void HighBloodPressure()
         {
-            webDriver.Navigate().GoToUrl("https://bpcalculatorca-dev.azurewebsites.net/");
+            webDriver.Navigate().GoToUrl("http://webapp-ca2-webapp-ca2dev.azurewebsites.net/");
             webDriver.FindElement(By.Name("BP.Systolic")).Clear();
             webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("190");
             webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
@@ -69,7 +69,7 @@ namespace Selenium
         public void UnkownBloodPressure()
         {
 
-            webDriver.Navigate().GoToUrl("https://bpcalculatorca-dev.azurewebsites.net/");
+            webDriver.Navigate().GoToUrl("http://webapp-ca2-webapp-ca2dev.azurewebsites.net/");
             webDriver.FindElement(By.Name("BP.Systolic")).Clear();
             webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("100");
             webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
@@ -81,7 +81,7 @@ namespace Selenium
         [Test]
         public void SystolicMustbeGreater()
         {
-            webDriver.Navigate().GoToUrl("https://bpcalculatorca-dev.azurewebsites.net/");
+            webDriver.Navigate().GoToUrl("http://webapp-ca2-webapp-ca2dev.azurewebsites.net/");
             webDriver.FindElement(By.Name("BP.Systolic")).Clear();
             webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("70");
             webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
@@ -95,7 +95,7 @@ namespace Selenium
         {
 
 
-            webDriver.Navigate().GoToUrl("https://bpcalculatorca-dev.azurewebsites.net/");
+            webDriver.Navigate().GoToUrl("http://webapp-ca2-webapp-ca2dev.azurewebsites.net/");
             webDriver.FindElement(By.Name("BP.Systolic")).Clear();
             webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("90");
             webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
@@ -109,7 +109,7 @@ namespace Selenium
         {
 
 
-            webDriver.Navigate().GoToUrl("https://bpcalculatorca-dev.azurewebsites.net/");
+            webDriver.Navigate().GoToUrl("http://webapp-ca2-webapp-ca2dev.azurewebsites.net/");
             webDriver.FindElement(By.Name("BP.Systolic")).Clear();
             webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("200");
             webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
@@ -123,7 +123,7 @@ namespace Selenium
         public void WrongDiastolicValue()
         {
 
-            webDriver.Navigate().GoToUrl("https://bpcalculatorca-dev.azurewebsites.net/");
+            webDriver.Navigate().GoToUrl("http://webapp-ca2-webapp-ca2dev.azurewebsites.net/");
             webDriver.FindElement(By.Name("BP.Systolic")).Clear();
             webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("70");
             webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
@@ -136,7 +136,7 @@ namespace Selenium
         [Test]
         public void InvalidSystolicValue()
         {
-            webDriver.Navigate().GoToUrl("https://bpcalculatorca-dev.azurewebsites.net/");
+            webDriver.Navigate().GoToUrl("http://webapp-ca2-webapp-ca2dev.azurewebsites.net/");
             webDriver.FindElement(By.Name("BP.Systolic")).Clear();
             webDriver.FindElement(By.Name("BP.Systolic")).Click();
             webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
@@ -147,7 +147,7 @@ namespace Selenium
           [Test]
         public void TeenLowBloodPressure()
         {
-            webDriver.Navigate().GoToUrl("https://bpcalculatorca-dev.azurewebsites.net/");
+            webDriver.Navigate().GoToUrl("http://webapp-ca2-webapp-ca2dev.azurewebsites.net/");
             SelectElement selectElement = new SelectElement(webDriver.FindElement(By.Name("BP.AgeType")));
             selectElement.SelectByIndex(1);
             webDriver.FindElement(By.Name("BP.Systolic")).Clear();
