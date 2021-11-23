@@ -14,13 +14,13 @@ namespace Selenium
         public void Setup()
         {
             // this.webAppUri = testContextInstance.Properties["webAppUri"].ToString();
-            webDriver.Navigate().GoToUrl("https://bpcalculatorca-dev.azurewebsites.net");
+            webDriver.Navigate().GoToUrl("http://webapp-ca2-webapp-ca2dev.azurewebsites.net");
         }
 
         [Test]
         public void LowBloodPressure()
         {
-            webDriver.Navigate().GoToUrl("https://bloodpressure-ca-staging.azurewebsites.net");
+            webDriver.Navigate().GoToUrl("http://webapp-ca2-webapp-ca2dev.azurewebsites.net");
             webDriver.FindElement(By.Name("BP.Systolic")).Clear();
             webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("70");
             webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
@@ -32,7 +32,7 @@ namespace Selenium
         [Test]
         public void IdealBloodPressure()
         {
-            webDriver.Navigate().GoToUrl("https://bloodpressure-ca-staging.azurewebsites.net");
+            webDriver.Navigate().GoToUrl("http://webapp-ca2-webapp-ca2dev.azurewebsites.net");
             webDriver.FindElement(By.Name("BP.Systolic")).Clear();
             webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("95");
             webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
@@ -44,7 +44,7 @@ namespace Selenium
         [Test]
         public void PreHighBloodPressure()
         {
-            webDriver.Navigate().GoToUrl("https://bloodpressure-ca-staging.azurewebsites.net");
+            webDriver.Navigate().GoToUrl("http://webapp-ca2-webapp-ca2dev.azurewebsites.nett");
             webDriver.FindElement(By.Name("BP.Systolic")).Clear();
             webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("125");
             webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
@@ -56,7 +56,7 @@ namespace Selenium
         [Test]
         public void HighBloodPressure()
         {
-            webDriver.Navigate().GoToUrl("https://bloodpressure-ca-staging.azurewebsites.net");
+            webDriver.Navigate().GoToUrl("http://webapp-ca2-webapp-ca2dev.azurewebsites.net");
             webDriver.FindElement(By.Name("BP.Systolic")).Clear();
             webDriver.FindElement(By.Name("BP.Systolic")).SendKeys("190");
             webDriver.FindElement(By.Name("BP.Diastolic")).Clear();
