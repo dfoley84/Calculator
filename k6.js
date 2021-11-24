@@ -16,12 +16,13 @@ export const options = {
         loadimpact: {
             distribution: {
                 'amazon:us:ashburn': { loadZone: 'amazon:us:ashburn', percent: 100 },
+
             },
         },
     },
 }
 
 export default function main() {
-    let response = http.get('https://bloodpressure-staging.azurewebsites.net')
+    let response = http.get('https://bloodpressure-ca-staging.azurewebsites.net')
     sleep(1)
 }
