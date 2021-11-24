@@ -1,0 +1,177 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy ASP.Net Core app to Azure Web App - bloodpressure-ca
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+permissions:
+      id-token: write
+      contents: read
+      
+on:
+  push:
+    branches:
+      - Development
+  workflow_dispatch:
+jobs:
+  build:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Set up .NET Core
+          uses: actions/setup-dotnet@v1
+          with:
+            dotnet-version: '3.1.301'
+            include-prerelease: true
+
+        - name: Build with dotnet
+          run: dotnet build --configuration Release
+
+        - name: dotnet publish
+          run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+
+        - name: Run NUnit Unit Testing
+          run: dotnet test BPCalculator.Tests/BPCalculator.Tests.csproj --collect "Code coverage"
+
+        - name: Run SpecFlow
+          run: dotnet test Spec/Spec.csproj --collect "Code coverage"
+
+        - name: Sonarscanner for dotnet
+          uses: Secbyte/dotnet-sonarscanner@v2.3
+          with:
+            buildCommand: dotnet build .
+            projectKey: dfoley84_Calculator
+            projectName: Calculator
+            sonarOrganisation: dfoley84
+          env:
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+
+        - name: Upload artifact for deployment job
+          uses: actions/upload-artifact@v2
+          with:
+            name: .net-app
+            path: ${{env.DOTNET_ROOT}}/myapp
+
+  dependency_check:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Depcheck
+        uses: dependency-check/Dependency-Check_Action@main
+        id: Depcheck
+        with:
+          project: 'BMI'
+          path: '.'
+          format: 'HTML'
+          args: >
+              --failOnCVSS 7
+            # fail if CVSS score (CVE scoring system) is High >=7
+
+      - name: Upload Test results
+        uses: actions/upload-artifact@master
+        with:
+          name: Depcheck report
+          path: ${{github.workspace}}/reports
+
+  Terraform:
+    runs-on: ubuntu-latest
+    needs: dependency_check
+    env:
+      ARM_CLIENT_ID: ${{secrets.AZURE_CLIENT_ID}}
+      ARM_CLIENT_SECRET: ${{secrets.AZURE_SECRET_ID}}
+      ARM_SUBSCRIPTION_ID: ${{secrets.AZURE_SUBSCRIPTIONID}}
+      ARM_TENANT_ID: ${{secrets.AZURE_TENANT_ID}}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+
+  Deploy_To_Staging:
+        runs-on: windows-latest
+        needs: Terraform
+        steps:
+          - name: OIDC Login to Azure Public Cloud with AzPowershell (enableAzPSSession true)
+            uses: azure/login@v1
+            with:
+              creds: ${{ secrets.AZURE_CREDENTIALS }}
+          - name: Get Publish Profile
+            run: |
+              echo "::set-output name=PUBLISH_PROFILE::$(az webapp deployment list-publishing-profiles -g 'ca3' -n 'webapp-ca2' -s 'webapp-ca2dev' --xml)"
+            id: getPublishProfile
+          - name: Download artifact from build job
+            uses: actions/download-artifact@v2
+            with:
+              name: .net-app
+          - name: Deploy to Azure Web App
+            id: deploy-to-webapp
+            uses: azure/webapps-deploy@v2
+            with:
+              app-name: 'webapp-ca2'
+              slot-name: 'webapp-ca2dev'
+              publish-profile: ${{ steps.getPublishProfile.outputs.PUBLISH_PROFILE }}
+              package: .
+          - name: Selenium Test
+            run: dotnet test ./Selenium.dll --logger:"trx;LogFileName=selenium.trx"
+  k6_load_test:
+    name: k6 Load Testing
+    runs-on: ubuntu-latest
+    needs: Deploy_To_Staging
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Run k6 cloud test
+        uses: k6io/action@v0.1
+        with:
+          filename: k6stress.js
+          cloud: true
+          token: ${{ secrets.K6_CLOUD_API_TOKEN }}
+
+  Owasp:
+    runs-on: ubuntu-latest
+    needs: k6_load_test
+    steps:
+      - name: Web Scanner
+        uses: zaproxy/action-baseline@v0.5.0
+        with:
+          token: ${{ secrets.TOKEN_GITHUB }}
+          target: 'http://webapp-ca2-webapp-ca2dev.azurewebsites.net/'
+  
+  Deploy_To_Production:
+           runs-on: windows-latest
+           needs: Owasp
+           environment:
+             name: 'production'
+           steps:
+             - name: OIDC Login to Azure Public Cloud with AzPowershell (enableAzPSSession true)
+               uses: azure/login@v1
+               with:
+                 creds: ${{ secrets.AZURE_CREDENTIALS }}
+             - name: Get Publish Profile
+               run: |
+                 echo "::set-output name=PUBLISH_PROFILE::$(az webapp deployment list-publishing-profiles -g 'ca3' -n 'webapp-ca2' --xml)"
+               id: getPublishProfile
+             - name: Download artifact from build job
+               uses: actions/download-artifact@v2
+               with:
+                 name: .net-app
+             - name: Deploy to Azure Web App
+               id: deploy-to-webapp
+               uses: azure/webapps-deploy@v2
+               with:
+                 app-name: 'webapp-ca2'
+                 slot-name: 'production'
+                 publish-profile: ${{ steps.getPublishProfile.outputs.PUBLISH_PROFILE }}
+                 package: .
