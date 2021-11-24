@@ -1,1 +1,0 @@
-[![Build and deploy ASP.Net Core app to Azure Web App - bloodpressure-ca](https://github.com/dfoley84/Calculator/actions/workflows/master_bloodpressure-ca.yml/badge.svg)](https://github.com/dfoley84/Calculator/actions/workflows/master_bloodpressure-ca.yml)
